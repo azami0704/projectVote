@@ -11,7 +11,7 @@ if(!empty($_POST)){
                 update('projectvote_users',['last_login'=>date("Y-m-d H:i:s",strtotime('now'))],$userData['id']);
                 insert('projectvote_login',['user_id'=>$userData['id']]);
                 // echo "login_success";
-                if($userData['level']===0){
+                if($userData['level']==0){
                     header("location:../admin.php");
                 }else{
                     if(!empty($_COOKIE['last_survey_id'])){
