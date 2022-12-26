@@ -6,7 +6,7 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
 <div class="container-xxl pb-5 mt-3">
     <form action="./api/edit_survey_daily.php" method="post" enctype="multipart/form-data" class="edit-survey-form mx-auto" id="edit-survey-form">
-    <a href="?do=mysurvey" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>返回</a>
+    <a href="?do=edit_survey_daily" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>返回每日主題</a>
     <div class="section-tag tag-lg mb-3">編輯投票</div>
     <div class="tool d-flex align-items-center">
         <!-- 投票設定區(type/date/file upload) -->
@@ -14,10 +14,10 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
         <!-- 投票類型 -->
         <div class="radio-box d-flex">
             <?php
-            $subjectDetail = find('projectVote_subject_daily',$_GET['id']);
+            $subjectDetail = find('projectvote_subject_daily',$_GET['id']);
             $img = find('projectvote_upload',$subjectDetail['image']);
             $imgURL = "./upload/{$img['file_name']}";
-            $options = all('projectVote_subject_daily_options',['subject_id'=>$_GET['id']]);
+            $options = all('projectvote_subject_daily_options',['subject_id'=>$_GET['id']]);
             $startTime = date("Y-m-d",strtotime($subjectDetail['start_time']));
             $endTime = date("Y-m-d",strtotime($subjectDetail['end_time']));
             // print_r($options);

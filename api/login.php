@@ -47,7 +47,7 @@ if(!empty($_POST)){
                 $_SESSION['user']=$userData;
                 update('projectvote_users',['last_login'=>date("Y-m-d H:i:s",strtotime('now'))],$userData['id']);
                 insert('projectvote_login',['user_id'=>$userData['id']]);
-                if($userData['level']===0){
+                if($userData['level']==0){
                     setcookie('last_survey_id','',time()-3600,"/projectVote");
                     echo "admin_login_success";
                 }else{

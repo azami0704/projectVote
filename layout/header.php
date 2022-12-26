@@ -11,7 +11,7 @@ include_once "./db/base.php";
       </a>
       <ul class="nav ms-auto">
           <?php
-          if(isset($_SESSION['user']) && $_SESSION['user']['level']!==0){
+          if(isset($_SESSION['user']) && $_SESSION['user']['level']!=0){
             if($do!='add_survey' && $do!='edit_survey'){
               ?>
             <!-- 下拉選單 -->

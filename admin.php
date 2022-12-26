@@ -14,7 +14,7 @@ include_once "./db/base.php";
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css' integrity='sha512-FA9cIbtlP61W0PRtX36P6CGRy0vZs0C2Uw26Q1cMmj3xwhftftymr0sj8/YeezDnRwL9wtWw8ZwtCiTDXlXGjQ==' crossorigin='anonymous'/>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css' integrity='sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==' crossorigin='anonymous'/>
   <link rel="stylesheet" href="./style/all.css">
-  <title>JUST VOTE!</title>
+  <title>JUST VOTE!管理後台</title>
 </head>
 
 <body>
@@ -29,14 +29,14 @@ $do = $_GET['do'] ?? "admin_main";
 //因為header layout在頂端的關係後面匯入的頁面不能用header()轉址
 //將判斷寫到這邊
 //在投票頁沒id導到首頁
-if($do=="vote_survey" && !isset($_GET['id'])){
-  $do= "main";
-};
+// if($do=="vote_survey" && !isset($_GET['id'])){
+//   $do= "main";
+// };
 
 //編輯頁沒id導回我的投票
-if($do=="edit_survey" && !isset($_GET['id'])){
-  $do = "mysurvey";
-}
+// if($do=="edit_survey" && !isset($_GET['id'])){
+//   $do = "mysurvey";
+// }
 // print_r($_COOKIE);
 
 //導覽header

@@ -19,6 +19,9 @@ $todaySurvey = find("projectvote_subject_daily",['start_time'=>date("Y-m-d")]);
     <div class="w-15">最新投票時間</div>
     <div class="w-15">操作</div>
   </li>
+  <?php
+  if(!empty($todaySurvey)){
+  ?>
   <li class="list-group-item d-flex align-items-center border-bottom border-1 border-dark px-1">
       <div class="w-20 text-collapse"><?=$todaySurvey['title']?></div>
       <div class="w-15"><?=$todaySurvey['vote']?></div>
@@ -29,6 +32,13 @@ $todaySurvey = find("projectvote_subject_daily",['start_time'=>date("Y-m-d")]);
       <a href='?do=survey_result_daily&id=<?=$todaySurvey['id']?>' class='btn btn-main'><i class='fa-solid fa-eye'></i></a>
       <div>
       </li>
+      <?php
+  }else{
+    echo "<li class='list-group-item d-flex align-items-center border-bottom border-1 border-dark px-1'>";
+    echo "<div class='w-100'>今日無主題投票</div>";
+    echo "</li>";
+  }
+      ?>
     </ul>
     </div>
 </div>
