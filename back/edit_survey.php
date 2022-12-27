@@ -78,11 +78,13 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
         <div class="private my-3">
         <div class="fs-5 fw-bold">投票權限</div>
         <?php
+         if($subjectDetail['private']==2){
         $members = all('projectvote_subject_users',['subject_id'=>$subjectDetail['id'],'auth'=>1]);
         if(empty($members)){
             $public='';
             $privateLink='checked';
             $privateMember='';
+        }
         }
         ?>
         <label class="fs-5 fw-bold me-2" for="public"><input type="radio" id="public" class="form-check-input fs-5" name="private" value=0 <?=$public?>>公開</label>
@@ -94,6 +96,7 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
     </div>
     <div class="member-input d-flex flex-wrap">
         <?php
+        if($subjectDetail['private']==2){
         if(count($members)%2){
             $members[]=['account'=>""];
         }
@@ -114,6 +117,7 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
                 echo "<label class='w-50 position-relative'><a href='./api/del_member.php?subject_id={$subjectDetail['id']}&account={$member['account']}&admin' class='position-absolute end-0 z-index-1 del-member-btn'><i class='fa-sharp fa-solid fa-xmark del-member-btn'></i></a><input type='hidden' name='$memberIdCheck' value='$memberIdValueCheck'><input type='email' name='$memberCheck' placeholder='請輸入會員帳號' value='{$member['account']}' class='form-control'></label>";
                 echo "</div>";
             }
+        }
         }
         ?>
     </div>

@@ -6,7 +6,10 @@ include_once "./db/base.php";
 // 私人投票
 // 用頁籤分
 
-$listSet = $_GET['sheet']??"own_list";
+if(!isset($_GET['sheet'])){
+  $_GET['sheet']="own_list";
+}
+$listSet = $_GET['sheet'];
 if($listSet=="own_list"){
   $ownList = "active";
   $privateList = '';
@@ -113,6 +116,9 @@ if(isset($_GET['page'])){
   <!-- 我的投票輸出區 END-->
 </ul>
 <!-- 顯示筆數控制 -->
+<?php
+if(!empty($ownSurveyList)){
+  ?>
 <div class="page-control mx-auto w-fit-content py-4">
   <div class="page-list mb-3">
     <?php
@@ -205,6 +211,7 @@ for($i=$pagiStart;$i<=$pageEnd;$i++){
 echo $pagiLastPage;
 echo "<li class='page-item $nextDisable'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page={$nextPage}'>></a></li>";
 //頁數輸出 END
+}
 ?>
 <!-- pagination END-->
 </div>

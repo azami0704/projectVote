@@ -83,6 +83,9 @@ if(isset($_GET['page'])){
   ?>
   <!-- 我的投票輸出區 END-->
 </ul>
+<?php
+if(!empty($dailySurveyList)){
+  ?>
 <!-- 顯示筆數控制 -->
 <div class="page-control mx-auto w-fit-content py-4">
   <div class="page-list mb-3">
@@ -174,6 +177,7 @@ for($i=$pagiStart;$i<=$pageEnd;$i++){
 echo $pagiLastPage;
 echo "<li class='page-item $nextDisable'><a class='page-link text-dark' href='?do={$_GET['do']}&pageSet={$pageSetting}&page={$nextPage}'>></a></li>";
 //頁數輸出 END
+}
 ?>
 <!-- pagination END-->
 </div>

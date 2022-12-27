@@ -75,11 +75,13 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
         <div class="private my-3">
         <div class="fs-5 fw-bold">投票權限</div>
         <?php
-        $members = all('projectvote_subject_users',['subject_id'=>$subjectDetail['id'],'auth'=>1]);
-        if(empty($members)){
-            $public='';
-            $privateLink='checked';
-            $privateMember='';
+        if($subjectDetail['private']==2){
+            $members = all('projectvote_subject_users',['subject_id'=>$subjectDetail['id'],'auth'=>1]);
+            if(empty($members)){
+                $public='';
+                $privateLink='checked';
+                $privateMember='';
+            }
         }
         ?>
         <label class="fs-5 fw-bold me-2" for="public"><input type="radio" id="public" class="form-check-input fs-5" name="private" value=0 <?=$public?>>公開</label>
@@ -91,6 +93,7 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
     </div>
     <div class="member-input d-flex flex-wrap">
         <?php
+        if($subjectDetail['private']==2){
         if(count($members)%2){
             $members[]=['account'=>""];
         }
@@ -112,6 +115,7 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
                 echo "</div>";
             }
         }
+    }
         ?>
     </div>
 <div class="my-3">

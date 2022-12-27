@@ -2,7 +2,7 @@
 include_once "./db/base.php";
 
 $startTime = date("Y-m-d", strtotime('now'));
-$endTime = date("Y-m-d", strtotime("+1 months"));
+// $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
 <div class="container-xxl mt-3 pb-5">
     <form action="./api/add_survey_daily.php" method="post" enctype="multipart/form-data" class="add-survey-form mx-auto" id="add-survey-form">
@@ -19,7 +19,7 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
         <div class="date-selector mt-3">
             <div class="time-error-info text-danger"></div>
             <label class="fs-5 fw-bold" for="start_time">開始時間<input class="fs-5 mx-2" type="date" name="start_time" id="start_time" value="<?=$startTime?>"></label>
-            <label class="fs-5 fw-bold" for="end_time">結束時間<input class="fs-5 mx-2" type="date" name="end_time" id="end_time" value="<?=$endTime?>"></label>
+            <label class="fs-5 fw-bold" for="end_time">結束時間<input class="fs-5 mx-2" type="date" name="end_time" id="end_time" value="<?=$startTime?>"></label>
         </div>
     </div>
         <a href="#" class="btn btn-main float-right ms-auto add-option-btn align-self-start"><i class="fa-sharp fa-solid fa-plus"></i></a>
