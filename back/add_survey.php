@@ -163,8 +163,11 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
         const startDate = new Date(starTime.value);
         const endDate = new Date(endTime.value);
         timeErrorInfo.textContent="";
+        if(!Object.keys(startDate).length||!Object.keys(endDate).length) {
+            timeErrorInfo.textContent = "請選擇日期";
+        }
         if(endDate-startDate<0){
-            timeErrorInfo.textContent = "結束時間需要大於開始時間"
+            timeErrorInfo.textContent = "結束時間需要大於開始時間";
         }
     }
 
