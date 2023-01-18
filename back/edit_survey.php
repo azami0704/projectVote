@@ -269,7 +269,7 @@ foreach($options as $key =>$opt){
         const startDate = new Date(starTime.value);
         const endDate = new Date(endTime.value);
         timeErrorInfo.textContent="";
-        if(!Object.keys(startDate).length||!Object.keys(endDate).length) {
+        if(!starTime.value||!endTime.value) {
             timeErrorInfo.textContent = "請選擇日期";
         }
         if(endDate-startDate<0){

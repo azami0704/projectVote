@@ -6,7 +6,7 @@ $startTime = date("Y-m-d", strtotime('now'));
 ?>
 <div class="container-xxl mt-3 pb-5">
     <form action="./api/add_survey_daily.php" method="post" enctype="multipart/form-data" class="add-survey-form mx-auto" id="add-survey-form">
-    <a href="?do=daily_survey_list" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>管理中心</a>
+    <a href="?do=admin_main" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>管理中心</a>
     <div class="section-tag tag-lg mb-3">發起每日投票</div>
     <div class="tool d-flex align-items-center ">
     <div class="option-type">
@@ -102,7 +102,7 @@ $startTime = date("Y-m-d", strtotime('now'));
         const startDate = new Date(starTime.value);
         const endDate = new Date(endTime.value);
         timeErrorInfo.textContent="";
-        if(!Object.keys(startDate).length||!Object.keys(endDate).length) {
+        if(!starTime.value||!endTime.value) {
             timeErrorInfo.textContent = "請選擇日期";
         }
         if(endDate-startDate<0){
