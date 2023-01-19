@@ -31,7 +31,7 @@ if(isset($_GET['page'])){
   
   <?php
     $surveyList = all('projectvote_subject_daily'," ORDER BY `start_time` ASC LIMIT $pageStart,$pageSetting");
-    $dailySurveyRows = countSql('projectvote_subject_daily');
+    $surveyRows = countSql('projectvote_subject_daily');
     if(!empty($surveyList)){
       foreach($surveyList as $dailySurvey){
       // $surveyDetail =  all('projectvote_subject',['id'=>$ownSurvey['subject_id']]);
