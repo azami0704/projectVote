@@ -59,7 +59,6 @@ if ($res_subject) {
         if ($opt) {
             $option = replaceInput('sql',$opt);
             $sqlOption = ['subject_id' => $subjectId, 'opt' => $option];
-            print_r($sqlOption);
             insert('projectvote_subject_daily_options', $sqlOption);
         }
     }

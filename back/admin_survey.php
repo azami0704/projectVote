@@ -59,15 +59,15 @@ if(isset($_GET['page'])){
   <?php
   //若為全站投票管理就撈全部
   if($identity!=''){
-    $ownSurveyList = all('projectvote_subject_users',['account'=>$_SESSION['user']['account'],'auth'=>$identity]," LIMIT $pageStart,$pageSetting");
-    $ownSurveyRows = countSql('projectvote_subject_users',['account'=>$_SESSION['user']['account'],'auth'=>$identity]);
+    $surveyList = all('projectvote_subject_users',['account'=>$_SESSION['user']['account'],'auth'=>$identity]," LIMIT $pageStart,$pageSetting");
+    $surveyRows = countSql('projectvote_subject_users',['account'=>$_SESSION['user']['account'],'auth'=>$identity]);
   }else{
-    $ownSurveyList = all('projectvote_subject_users'," LIMIT $pageStart,$pageSetting");
-    $ownSurveyRows = countSql('projectvote_subject_users');
+    $surveyList = all('projectvote_subject_users'," LIMIT $pageStart,$pageSetting");
+    $surveyRows = countSql('projectvote_subject_users');
   }
   //清單不是空的就開始印
-    if(!empty($ownSurveyList)){
-      foreach($ownSurveyList as $ownSurvey){
+    if(!empty($surveyList)){
+      foreach($surveyList as $ownSurvey){
       $surveyDetail =  find('projectvote_subject',['id'=>$ownSurvey['subject_id']]);
       $categoryName= find('projectvote_subject_category',$surveyDetail['category_id'])['category'];
       $title = replaceInput('html',$surveyDetail['title']);
@@ -144,107 +144,11 @@ if(isset($_GET['page'])){
   ?>
     </ul>
     <!-- 投票輸出區 END -->
-  <?php
-  if(!empty($ownSurveyList)){
-    ?>
-<!-- 顯示筆數控制 -->
-<div class="page-control mx-auto w-fit-content py-4">
-  <div class="page-list mb-3">
+    <!-- 換頁元件 -->
     <?php
-    $pages = ceil($ownSurveyRows/$pageSetting);
-    echo "總共頁{$ownSurveyRows}筆";
-    echo "每頁";
-    echo "<select name='pageSet' id='pageSet'>";
-    foreach($pageRange as $range){
-      if($range==$pageSetting){
-        echo "<option value='$range' selected>$range</option>";
-      }else{
-        echo "<option value='$range'>$range</option>";
-      }
-    }
-    echo "</select>筆，";
-    echo "共{$pages}頁";
+    include "./layout/pagination.php";
     ?>
-<script>
-  const pageUrl = new URLSearchParams(window.location.search);
-  const pathNameForPage = window.location.pathname; 
-  const pageSet = document.getElementById('pageSet');
-  let getPageDo = pageUrl.get('do');
-  let getPageSheet = pageUrl.get('sheet');
-
-  let pathNameForPageArr = (pathNameForPage.split(/\/|\./));
-  let directUrlForPage = 'index';
-  if(pathNameForPageArr.indexOf('index')==-1){
-    directUrlForPage='admin';
-  }
-  pageSet.addEventListener('change',(e)=>{
-    location.href = `./${directUrlForPage}.php?do=${getPageDo}&sheet=${getPageSheet}&pageSet=${e.target.value}`;
-  })
-</script>
-<!-- 顯示筆數控制 END-->
-</div>
-<div class="pagination w-fit-content mx-auto border border-1 border-dark text-black">
-<!-- pagination -->
-<?php
-//上一頁下一頁
-$prevPage = $pageActive-1;
-$nextPage = $pageActive+1;
-$preDisable = '';
-$nextDisable = '';
-if($pages==1){
-    $nextPage = $pages;
-    $prevPage = $pages;
-    $nextDisable = "disable";
-    $preDisable = "disable";
-}else if($pageActive==1){
-    $prevPage = 1;
-    $preDisable = "disable";
-}else if($pageActive==$pages){
-    $nextPage = $pages;
-    $nextDisable = "disable";
-}
-//一次顯示幾頁
-$pagiRange =10;
-if($pages>$pagiRange){
-    if($pageActive > 5 && $pages-$pageActive>4){
-        $pagiStart=$pageActive-4;
-        $pagiFirstPage = "<li class='page-item'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page=1'>1</a></li>...";
-        $pagiLastPage = "...<li class='page-item'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page={$pages}'>{$pages}</a></li>";
-    }else if($pageActive > 5){
-        $pagiStart=$pages-($pagiRange-2);
-        $pagiFirstPage = "<li class='page-item'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page=1'>1</a></li>...";
-        $pagiLastPage = '';
-    }else{
-        $pagiStart=1;
-        $pagiFirstPage = "";
-        $pagiLastPage = "...<li class='page-item'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page={$pages}'>{$pages}</a></li>";
-    }
-    $pageEnd = $pagiStart+($pagiRange-2);
-}else{
-    $pagiStart=1;
-    $pageEnd = $pages;
-    $pagiFirstPage = '';
-    $pagiLastPage = '';
-}
-//頁數輸出
-$_GET['sheet'] = $_GET['sheet']??'';
-echo "<li class='page-item $preDisable'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page={$prevPage}'><</a></li>";
-echo $pagiFirstPage;
-for($i=$pagiStart;$i<=$pageEnd;$i++){
-    if($i==$pageActive){
-        echo "<li class='page-item active'><a class='page-link' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page={$i}'>{$i}</a></li>";
-    }else{
-        echo "<li class='page-item'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page={$i}'>{$i}</a></li>";
-    }
-}
-echo $pagiLastPage;
-echo "<li class='page-item $nextDisable'><a class='page-link text-dark' href='?do={$_GET['do']}&sheet={$_GET['sheet']}&pageSet={$pageSetting}&page={$nextPage}'>></a></li>";
-//頁數輸出 END
-?>
-<!-- pagination END-->
-<?php
-  }
-  ?>
+    <!-- 換頁元件 END-->
 </div>
 </div>
 </main>

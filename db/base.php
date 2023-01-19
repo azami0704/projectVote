@@ -142,7 +142,9 @@ function countSql($table,...$arg){
         }
         $sql.=" WHERE ".join(" AND ",$input);
     }
-
+    if(isset($arg[1])){
+        $sql .= $arg[1];
+    }
     // echo $sql;
     return $pdo->query($sql)->fetchColumn();
 } 

@@ -58,7 +58,6 @@ $todaySurvey = find("projectvote_subject_daily",['start_time'=>date("Y-m-d")]);
         })
 
     function C3Render(data) {
-        console.log(data);
         let date = Object.keys(data.dailyLogin);
         let active = Object.values(data.dailyLogin);
         let voted = Object.values(data.voted);
