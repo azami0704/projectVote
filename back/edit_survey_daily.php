@@ -4,7 +4,9 @@ include_once "./db/base.php";
 $startTime = date("Y-m-d", strtotime('now'));
 $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
-<div class="container-xxl pb-5 mt-3">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl pb-5 mt-5">
     <form action="./api/edit_survey_daily.php" method="post" enctype="multipart/form-data" class="edit-survey-form mx-auto" id="edit-survey-form">
     <a href="?do=edit_survey_daily" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>返回每日主題</a>
     <div class="section-tag tag-lg mb-3">編輯投票</div>
@@ -87,7 +89,7 @@ foreach($options as $key =>$opt){
         </footer>
     </form>
 </div>
-
+</div>
 <script>
         // 由於include了header.php,無法在這頁用PHP的header()轉址
         // 改用js轉

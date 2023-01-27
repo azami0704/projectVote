@@ -13,7 +13,9 @@ if(isset($_GET['status'])){
     }
 }
 ?>
-<div class="container-xxl mt-5 pb-5">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-5">
     <form action="./api/edit_member.php" method="post" class="reg-form mx-auto" id="reg-form">
         <input type="hidden" name="admin" value=0>
         <input type="hidden" name="id" value='<?=$memberDetail['id']?>'>
@@ -48,7 +50,7 @@ if(isset($_GET['status'])){
         </footer>
     </form>
 </div>
-
+</div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 <script>
     const constraints = {

@@ -37,8 +37,9 @@ if(isset($_GET['page'])){
 }
 
 ?>
-
-<div class="container-xxl mt-4 pb-5">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-5">
     <div class="section-tag tag-lg">投票管理</div>
       <main class="pt-3">
             <a href="?do=admin_survey&sheet=own_list" class="btn btn-sheet-tag <?=$ownList?>">我發起的投票</a>
@@ -152,5 +153,6 @@ if(isset($_GET['page'])){
 </div>
 </div>
 </main>
+</div>
 </div>
 

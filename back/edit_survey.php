@@ -4,7 +4,9 @@ include_once "./db/base.php";
 $startTime = date("Y-m-d", strtotime('now'));
 $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
-<div class="container-xxl pb-5 mt-3">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl pb-5 mt-5">
     <form action="./api/edit_survey.php" method="post" class="edit-survey-form mx-auto" id="add-survey-form">
         <!-- 給api判斷是否從後台過去的name -->
         <input type="hidden" name="admin" value=0>
@@ -155,6 +157,7 @@ foreach($options as $key =>$opt){
             <input type="submit" value="確認" class="btn btn-main btn-lg fw-bold">
         </footer>
     </form>
+</div>
 </div>
 <script src="./js/localHref.js"></script>
 <script>

@@ -1,15 +1,34 @@
 <?php
 include_once "./db/base.php";
 
-$todaySurvey = find("projectvote_subject_daily",['start_time'=>date("Y-m-d")]);
+$todaySurvey = find("projectvote_subject_daily", ['start_time' => date("Y-m-d")]);
+$today=date("Y-m-d");
 ?>
-<div class="container-xxl mt-4 pb-5">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-5">
     <div class="data">
         <h2 class="section-tag tag-lg mb-4">管理後台</h2>
         <h3>一週流量統計</h3>
         <div id="chart-user" class="chart mx-auto"></div>
     </div>
-    <div class="today-survey my-5">
+    <div class="data-cards d-flex justify-content-center">
+        <div class="data-card card my-5 mx-2 text-center">
+        <div class="card-body">
+        <h5 class="card-title fw-bold">總會員</h5>
+        <p class="dash-board-text card-text"><?=countSql('projectvote_users')?>
+        </p>
+        </div>
+        </div>
+        <div class="data-card card my-5 mx-2 text-center">
+        <div class="card-body">
+        <h5 class="card-title fw-bold">進行中投票</h5>
+        <p class="dash-board-text card-text"><?=countSql('projectvote_subject'," WHERE `start_time`<='$today' AND `end_time`>='$today'")+countSql('projectvote_subject_daily'," WHERE `start_time`<='$today' AND `end_time`>='$today'")?>
+        </p>
+        </div>
+        </div>
+    </div>
+    <div class="today-survey mt-3 mb-5">
     <h3>今日主題投票</h3>
     <ul class="list-group text-center">
     <li class="list-group-item d-flex align-items-center bg-transparent border-bottom border-3 border-dark p-1" aria-current="true">
@@ -20,8 +39,8 @@ $todaySurvey = find("projectvote_subject_daily",['start_time'=>date("Y-m-d")]);
     <div class="w-15">操作</div>
   </li>
   <?php
-  if(!empty($todaySurvey)){
-  ?>
+if (!empty($todaySurvey)) {
+    ?>
   <li class="list-group-item d-flex align-items-center border-bottom border-1 border-dark px-1">
       <div class="w-20 text-collapse"><?=$todaySurvey['title']?></div>
       <div class="w-15"><?=$todaySurvey['vote']?></div>
@@ -33,16 +52,16 @@ $todaySurvey = find("projectvote_subject_daily",['start_time'=>date("Y-m-d")]);
       <div>
       </li>
       <?php
-  }else{
+} else {
     echo "<li class='list-group-item d-flex align-items-center border-bottom border-1 border-dark px-1'>";
     echo "<div class='w-100'>今日無主題投票</div>";
     echo "</li>";
-  }
-      ?>
+}
+?>
     </ul>
     </div>
 </div>
-
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js'></script>

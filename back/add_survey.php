@@ -4,7 +4,9 @@ include_once "./db/base.php";
 $startTime = date("Y-m-d", strtotime('now'));
 $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
-<div class="container-xxl mt-3 pb-5">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-5">
     <form action="./api/add_survey.php" method="post" class="add-survey-form mx-auto" id="add-survey-form">
     <input type="hidden" name="admin">
     <a href="?do=admin_survey" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>回投票清單</a>
@@ -75,6 +77,7 @@ foreach ($categorys as $category) {
             <input type="submit" value="建立" class="btn btn-main btn-lg fw-bold">
         </footer>
     </form>
+</div>
 </div>
 <script>
     //新增選項上限

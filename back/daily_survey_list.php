@@ -12,8 +12,9 @@ if(isset($_GET['page'])){
 }
 
 ?>
-
-<div class="container-xxl mt-4 pb-5">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-5">
     <div class="section-tag tag-lg">每日主題投票</div>
         <main class="pt-3">
             <a href="?do=add_survey_daily"class="btn btn-main float-right mb-3"><i class="fa-sharp fa-solid fa-plus"></i></a>
@@ -90,4 +91,5 @@ if(isset($_GET['page'])){
 </div>
 </div>
 </main>
+</div>
 </div>

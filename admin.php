@@ -40,7 +40,7 @@ $do = $_GET['do'] ?? "admin_main";
 // print_r($_COOKIE);
 
 //導覽header
-include "./layout/header.php";
+include "./layout/header_admin.php";
 
 $file = "./back/{$do}.php";
 if (file_exists($file)) {

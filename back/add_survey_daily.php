@@ -4,7 +4,9 @@ include_once "./db/base.php";
 $startTime = date("Y-m-d", strtotime('now'));
 // $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
-<div class="container-xxl mt-3 pb-5">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-5">
     <form action="./api/add_survey_daily.php" method="post" enctype="multipart/form-data" class="add-survey-form mx-auto" id="add-survey-form">
     <a href="?do=admin_main" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>管理中心</a>
     <div class="section-tag tag-lg mb-3">發起每日投票</div>
@@ -53,7 +55,7 @@ $startTime = date("Y-m-d", strtotime('now'));
         </footer>
     </form>
 </div>
-
+</div>
 <script>
     //新增選項上限
     //因為按鈕有兩層,所以設定的數量為按鈕n*2
