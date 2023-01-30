@@ -4,7 +4,9 @@ include_once "./db/base.php";
 $startTime = date("Y-m-d", strtotime('now'));
 $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
-<div class="container-xxl pb-5 mt-3">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl pb-5 mt-5">
     <form action="./api/edit_survey_daily.php" method="post" enctype="multipart/form-data" class="edit-survey-form mx-auto" id="add-survey-form">
     <a href="?do=edit_survey_daily" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>返回每日主題</a>
     <div class="section-tag tag-lg mb-3">編輯投票</div>
@@ -87,107 +89,18 @@ foreach($options as $key =>$opt){
         </footer>
     </form>
 </div>
-
+</div>
 <script>
-    const addSurveyForm = document.getElementById('edit-survey-form');
-    const plusOption = document.querySelector('.plus-option');
-    const addOptionBtn =document.querySelector('.add-option-btn');
-    addOptionBtn.addEventListener('click',addOption)
-
-    function addOption(e){
-        e.preventDefault();
-        const div = document.createElement('div');
-        div.setAttribute('class',"mb-3");
-        div.innerHTML=`<label class="form-label fs-4 fw-bold">選項</span></label><a href="#" class="btn btn-main float-right ms-auto del-option-btn"><i class="fa-solid fa-trash-can del-option-btn"></i></a><div class="clearfix"></div><input type="text" name="opt_new[]" class="form-control"  placeholder="請輸入15字以內文字" maxlength="15" autocomplete="off">`
-        plusOption.appendChild(div);
-        const delOptionBtn = document.querySelectorAll('.del-option-btn , .del-exist-option-btn');
-        if(delOptionBtn.length>=2){
-            addOptionBtn.style.cssText=`background-color:var(--gray-heavy);cursor:auto;`;
-            addOptionBtn.innerHTML =`<i class="fa-solid fa-ban"></i>`
-            addOptionBtn.removeEventListener('click',addOption);
+        // 由於include了header.php,無法在這頁用PHP的header()轉址
+        // 改用js轉
+        const editPageParams = new URLSearchParams(window.location.search);
+        if(!editPageParams.get('id')){
+            location.href="?do=daily_survey_list&status=edit_error";
         }
-    }
-    addSurveyForm.addEventListener('click',function(e){
-        if(e.target.classList.contains('del-option-btn')){
-            e.preventDefault();
-            e.target.closest('div').remove();
-            const delOptionBtn = document.querySelectorAll('.del-option-btn , .del-exist-option-btn');
-            if(delOptionBtn.length<2){
-            addOptionBtn.style.cssText=`background-color:var(--main);cursor:pointer;`;
-            addOptionBtn.innerHTML =`<i class="fa-sharp fa-solid fa-plus">`
-            addOptionBtn.addEventListener('click',addOption);
-        }
-        }
-    })
-
-    //輸入資料驗證
-    const starTime = document.getElementById('start_time');
-    const endTime = document.getElementById('end_time');
-    const timeErrorInfo = document.querySelector('.time-error-info');
-    const optionErrorInfo =document.querySelector('.option-error-info');
-    starTime.addEventListener('change',checkDate);
-    endTime.addEventListener('change',checkDate);
-
-    function checkDate(){
-        const startDate = new Date(starTime.value);
-        const endDate = new Date(endTime.value);
-        timeErrorInfo.textContent="";
-        if(!starTime.value||!endTime.value) {
-            timeErrorInfo.textContent = "請選擇日期";
-        }
-        if(endDate-startDate<0){
-            timeErrorInfo.textContent = "結束時間需要大於開始時間"
-        }
-    }
-
-    //日期區間若不正確終止送出行為
-    addSurveyForm.addEventListener('submit',function(e){
-        e.preventDefault();
-        checkOption()
-        if(!timeErrorInfo.textContent && !optionErrorInfo.textContent){
-            addSurveyForm.submit();
-        }
-    })
-
-    //檢查是否有重複的投票選項
-    function checkOption(){
-        const optionList = document.querySelectorAll('[name="opt[]"],[name="opt_new[]"]');
-        // console.log(optionList);
-        let result = {};
-        let repeat = [];
-        optionList.forEach(item=>{
-            if(result[item.value]){
-                repeat.push(item.value);
-            }else{
-                result[item.value]=1;
-            }
-            
-        })
-        if(repeat.length!=0){
-            optionErrorInfo.textContent="選項不能重複!";
-        }else{
-            optionErrorInfo.textContent="";
-        }
-    }
-
-    // 由於include了header.php,無法在這頁用PHP的header()轉址
-    // 改用js轉
-    const editPageParams = new URLSearchParams(window.location.search);
-    if(!editPageParams.get('id')){
-        location.href="?do=mysurvey&status=edit_error";
-    }
-
-    //圖片預覽
-    const fileInput = document.querySelector('.file-input');
-    const imgView = document.getElementById('img-view');
-    fileInput.addEventListener('change',renderImg);
-     function renderImg(){
-        if(this.files){
-            let reader = new FileReader();
-            reader.readAsDataURL(this.files[0]);
-            reader.addEventListener('load',function(e){
-                imgView.src = this.result;
-            })
-        }
-     }
 </script>
+<script>
+    //新增選項上限
+    //因為按鈕有兩層,所以設定的數量為按鈕n*2
+    const optionLimit=2; 
+</script>
+<script src="./js/addPage.js"></script>

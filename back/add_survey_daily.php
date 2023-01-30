@@ -4,7 +4,9 @@ include_once "./db/base.php";
 $startTime = date("Y-m-d", strtotime('now'));
 // $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
-<div class="container-xxl mt-3 pb-5">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-5">
     <form action="./api/add_survey_daily.php" method="post" enctype="multipart/form-data" class="add-survey-form mx-auto" id="add-survey-form">
     <a href="?do=admin_main" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>管理中心</a>
     <div class="section-tag tag-lg mb-3">發起每日投票</div>
@@ -53,106 +55,11 @@ $startTime = date("Y-m-d", strtotime('now'));
         </footer>
     </form>
 </div>
-
+</div>
 <script>
-    const addSurveyForm = document.getElementById('add-survey-form');
-    const plusOption = document.querySelector('.plus-option');
-    const addOptionBtn =document.querySelector('.add-option-btn');
-    //新增選項按鈕綁監聽
-    addOptionBtn.addEventListener('click',addOption)
-    
-    //新增按鈕的動作,因為需要removeEventListener所以寫成function
-    function addOption(e){
-        e.preventDefault();
-        const div = document.createElement('div');
-        div.setAttribute('class',"mb-3");
-        div.innerHTML=`<label class="form-label fs-4 fw-bold">選項</span></label><a href="#" class="btn btn-main float-right ms-auto del-option-btn"><i class="fa-solid fa-trash-can del-option-btn"></i></a>
-        <div class="clearfix"></div>
-        <input type="text" name="opt[]" class="form-control"  placeholder="請輸入文字" maxlength="15" autocomplete="off">`
-        plusOption.appendChild(div);
-        const delOptionBtn = document.querySelectorAll('.del-option-btn');
-        if(delOptionBtn.length>=2){
-            addOptionBtn.style.cssText=`background-color:var(--gray-heavy);cursor:auto;`;
-            addOptionBtn.innerHTML =`<i class="fa-solid fa-ban"></i>`
-            addOptionBtn.removeEventListener('click',addOption);
-        }
-    }
-    //監聽整張表單的點擊事件
-    addSurveyForm.addEventListener('click',function(e){
-        if(e.target.classList.contains('del-option-btn')){
-            e.target.closest('div').remove();
-            const delOptionBtn = document.querySelectorAll('.del-option-btn');
-            if(delOptionBtn.length<2){
-            addOptionBtn.style.cssText=`background-color:var(--main);cursor:pointer;`;
-            addOptionBtn.innerHTML =`<i class="fa-sharp fa-solid fa-plus">`
-            addOptionBtn.addEventListener('click',addOption);
-        }
-        }
-    })
-
-    //輸入資料驗證
-    const starTime = document.getElementById('start_time');
-    const endTime = document.getElementById('end_time');
-    const timeErrorInfo = document.querySelector('.time-error-info');
-    const optionErrorInfo =document.querySelector('.option-error-info');
-    starTime.addEventListener('change',checkDate);
-    endTime.addEventListener('change',checkDate);
-
-    function checkDate(){
-        const startDate = new Date(starTime.value);
-        const endDate = new Date(endTime.value);
-        timeErrorInfo.textContent="";
-        if(!starTime.value||!endTime.value) {
-            timeErrorInfo.textContent = "請選擇日期";
-        }
-        if(endDate-startDate<0){
-            timeErrorInfo.textContent = "結束時間需要大於開始時間"
-        }
-    }
-
-    //日期區間若不正確,選項重複時終止送出行為
-    addSurveyForm.addEventListener('submit',function(e){
-        e.preventDefault();
-        checkOption();
-        if(!timeErrorInfo.textContent&&!optionErrorInfo.textContent){
-            addSurveyForm.submit();
-        }
-    })
-
-    //檢查是否有重複的投票選項
-    function checkOption(){
-        const optionList = document.querySelectorAll('[name="opt[]"]');
-        // console.log(optionList);
-        let result = {};
-        let repeat = [];
-        optionList.forEach(item=>{
-            if(result[item.value]){
-                repeat.push(item.value);
-            }else{
-                result[item.value]=1;
-            }
-            
-        })
-        if(repeat.length!=0){
-            optionErrorInfo.textContent="選項不能重複!";
-        }else{
-            optionErrorInfo.textContent="";
-        }
-    }
-
-    //圖片預覽
-    const fileInput = document.querySelector('.file-input');
-    const imgView = document.getElementById('img-view');
-    fileInput.addEventListener('change',renderImg);
-     function renderImg(){
-        if(this.files){
-            let reader = new FileReader();
-            reader.readAsDataURL(this.files[0]);
-            // console.log(reader);
-            reader.addEventListener('load',function(e){
-                imgView.src = this.result;
-            })
-        }
-     }
+    //新增選項上限
+    //因為按鈕有兩層,所以設定的數量為按鈕n*2
+    const optionLimit=2; 
 </script>
+<script src="./js/addPage.js"></script>
 

@@ -15,6 +15,7 @@
     --section-tag-arrow:calc((var(--section-tag-fs) * 1.5) / 2);
     --section-tag-fs-lg:2rem;
     --section-tag-lg-arrow:calc((var(--section-tag-fs-lg) * 1.5) / 2);
+    --nav-width:max(200px,13%);
 }
 
 body {
@@ -388,6 +389,33 @@ textarea {
 .daily-list .daily-list-item{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+.dash-board-text {
+    font-size: 5rem;
+}
+
+.data-card {
+    width: max(190px,10vw);
+    aspect-ratio: 1;
+    border: 1px solid var(--black);
+}
+
+.admin-nav {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--nav-width);
+    z-index: 120;
+}
+
+.nav-space {
+    width: var(--nav-width);
+}
+@media screen and (max-width:1520px) {
+    .admin.container-xxl {
+        width: calc(100% - var(--nav-width));
+    }
 }
 
 @media screen and (min-width:768px) {

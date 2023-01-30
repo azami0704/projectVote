@@ -11,7 +11,6 @@ include_once "./db/base.php";
       </a>
       <ul class="nav ms-auto">
           <?php
-          if(isset($_SESSION['user']) && $_SESSION['user']['level']!=0){
             if($do!='add_survey' && $do!='edit_survey'){
               ?>
             <!-- 下拉選單 -->
@@ -27,60 +26,10 @@ include_once "./db/base.php";
                 <li><a class="dropdown-item" href="?do=category_list&category=<?=$category['id']?>"><?=$category['category']?></a></li>
                 <?php
               }
-          }
-            ?>
-            <!-- 下拉選單 END-->
-          </ul>
-        </li>
-            <?php
-          }else if(isset($_SESSION['user']) && $_SESSION['user']['level']==0){
-            if(stripos($_SERVER['PHP_SELF'],"index")!==false){
-              if($do!='add_survey' && $do!='edit_survey'){
-                ?>
-              <!-- 下拉選單 -->
-              <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                各類投票
-              </a>
-              <ul class="dropdown-menu">
-                <?php
-                $categories =all('projectvote_subject_category');
-                foreach($categories as $category){
-                  ?>
-                  <li><a class="dropdown-item" href="?do=category_list&category=<?=$category['id']?>"><?=$category['category']?></a></li>
-                  <?php
-                }
-            }
-            }
-            ?>
-            <!-- 下拉選單 END-->
-          </ul>
-        </li>
-            <?php
-          }else{
-            if($do!='add_survey' && $do!='edit_survey'){
-              ?>
-            <!-- 下拉選單 -->
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              各類投票
-            </a>
-            <ul class="dropdown-menu">
-              <?php
-              $categories =all('projectvote_subject_category');
-              foreach($categories as $category){
-                ?>
-                <li><a class="dropdown-item" href="?do=category_list&category=<?=$category['id']?>"><?=$category['category']?></a></li>
-                <?php
-              }
-          }
-            ?>
-            <!-- 下拉選單 END-->
-          </ul>
-        </li>
-            <?php
           }
           ?>
+          </ul>
+        </li>
 
         <?php
         if(!isset($_SESSION['user'])){
@@ -96,27 +45,16 @@ include_once "./db/base.php";
           ?>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            管理功能
+          <i class="fa-solid fa-user"></i>
           </a>
           <ul class="dropdown-menu text-center">
             <!-- 下拉選單輸出 -->
             <li class="border-bottom border-1 border-dark fw-bold pb-2 mb-2"><?=$_SESSION['user']['name']?></li>
-            <li><a class="dropdown-item" href="./admin.php">Dashboard</a></li>
-            <li><a class="dropdown-item" href="./admin.php?do=daily_survey_list">每日投票</a></li>
-            <li><a class="dropdown-item" href="./admin.php?do=admin_survey">一般投票</a></li>
-            <?php
-            if(stripos($_SERVER['PHP_SELF'],"index")==false){
-              ?>
-              <li><a class="dropdown-item" href="./index.php">切換至前台</a></li>
-              <?php
-            }else{
-              ?>
-              <li><a class="dropdown-item" href="./admin.php">切換至後台</a></li>
-            <?php
-            }
-            ?>
-            <li><a class="dropdown-item" href="./admin.php?do=member_center">個人資料</a></li>
+            <li><a class="dropdown-item" href="?do=mysurvey">我的投票</a></li>
+            <li><a class="dropdown-item" href="?do=mysurvey_log">投票紀錄</a></li>
+            <li><a class="dropdown-item" href="?do=member_center">個人資料</a></li>
             <li><a class="dropdown-item" href="./api/logout.php">登出</a></li>
+            <li><a class="dropdown-item" href="./admin.php">切換至後台</a></li>
             <!-- 下拉選單輸出 -->
           </ul>
         </li>
@@ -125,7 +63,7 @@ include_once "./db/base.php";
           ?>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            會員中心
+          <i class="fa-solid fa-user"></i>
           </a>
           <ul class="dropdown-menu text-center">
             <!-- 下拉選單輸出 -->

@@ -15,7 +15,9 @@ if(!empty($userLog)){
   $optionId=explode(',',$userLog['option_id']);
 }
 ?>
-<div class="container-xxl pb-5 mt-3">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl pb-5 mt-5">
     <div class="survey-info w-50 mx-auto">
       <a href="#" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>回清單</a>
       <h2 class="section-tag tag-lg mb-2"><?=$survey['title']?></h2>
@@ -48,7 +50,7 @@ if(!empty($userLog)){
       </ul>
     </div>
 </div>
-
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js'></script>
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>

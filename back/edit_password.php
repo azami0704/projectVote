@@ -4,7 +4,9 @@ include_once "./db/base.php";
 $memberDetail = find('projectvote_users',$_SESSION['user']['id']);
 
 ?>
-<div class="container-xxl mt-4 pb-4">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl mt-5 pb-4">
     <form action="./api/edit_password.php" method="post" class="reg-form mx-auto" id="reg-form">
     <input type="hidden" name="admin">
     <a href="?do=member_center" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>回個人資料</a>
@@ -30,7 +32,7 @@ $memberDetail = find('projectvote_users',$_SESSION['user']['id']);
         </footer>
     </form>
 </div>
-
+</div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 <script>
     const constraints = {

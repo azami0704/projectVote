@@ -137,12 +137,18 @@ function countSql($table,...$arg){
     $sql = "SELECT COUNT(*) FROM `$table`";
     $input=[];
     if(isset($arg[0])){
-        foreach($arg[0] as $key => $value){
-            $input[]="`$key` = '$value'";
+        if(is_array($arg[0])){
+            foreach($arg[0] as $key => $value){
+                $input[]="`$key` = '$value'";
+            }
+            $sql.=" WHERE ".join(" AND ",$input);
+        }else{
+            $sql.=$arg[0];
         }
-        $sql.=" WHERE ".join(" AND ",$input);
     }
-
+    if(isset($arg[1])){
+        $sql .= $arg[1];
+    }
     // echo $sql;
     return $pdo->query($sql)->fetchColumn();
 } 

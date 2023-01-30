@@ -4,8 +4,10 @@ include_once "./db/base.php";
 $startTime = date("Y-m-d", strtotime('now'));
 $endTime = date("Y-m-d", strtotime("+1 months"));
 ?>
-<div class="container-xxl pb-5 mt-3">
-    <form action="./api/edit_survey.php" method="post" class="edit-survey-form mx-auto" id="edit-survey-form">
+<div class="d-flex">
+<div class="nav-space"></div>
+<div class="admin container-xxl pb-5 mt-5">
+    <form action="./api/edit_survey.php" method="post" class="edit-survey-form mx-auto" id="add-survey-form">
         <!-- 給api判斷是否從後台過去的name -->
         <input type="hidden" name="admin" value=0>
         <!-- 給api判斷是否從後台過去的name END-->
@@ -156,161 +158,12 @@ foreach($options as $key =>$opt){
         </footer>
     </form>
 </div>
-
+</div>
+<script src="./js/localHref.js"></script>
 <script>
-    const addSurveyForm = document.getElementById('edit-survey-form');
-    const plusOption = document.querySelector('.plus-option');
-    const addOptionBtn =document.querySelector('.add-option-btn');
-    addOptionBtn.addEventListener('click',addOption)
-
-    function addOption(e){
-        e.preventDefault();
-        const div = document.createElement('div');
-        div.setAttribute('class',"mb-3");
-        div.innerHTML=`<label class="form-label fs-4 fw-bold">選項</span></label><a href="#" class="btn btn-main float-right ms-auto del-option-btn"><i class="fa-solid fa-trash-can del-option-btn"></i></a><div class="clearfix"></div><input type="text" name="opt_new[]" class="form-control"  placeholder="請輸入15字以內文字" maxlength="15" autocomplete="off">`
-        plusOption.appendChild(div);
-        const delOptionBtn = document.querySelectorAll('.del-option-btn , .del-exist-option-btn');
-        if(delOptionBtn.length>=20){
-            addOptionBtn.style.cssText=`background-color:var(--gray-heavy);cursor:auto;`;
-            addOptionBtn.innerHTML =`<i class="fa-solid fa-ban"></i>`
-            addOptionBtn.removeEventListener('click',addOption);
-        }
-    }
-    addSurveyForm.addEventListener('click',function(e){
-        if(e.target.classList.contains('del-option-btn')){
-            e.preventDefault();
-            e.target.closest('div').remove();
-            const delOptionBtn = document.querySelectorAll('.del-option-btn , .del-exist-option-btn');
-            if(delOptionBtn.length<20){
-            addOptionBtn.style.cssText=`background-color:var(--main);cursor:pointer;`;
-            addOptionBtn.innerHTML =`<i class="fa-sharp fa-solid fa-plus">`
-            addOptionBtn.addEventListener('click',addOption);
-        }
-        }
-    })
-
-    const private = document.querySelector('.private');
-    const memberAddBtn = document.querySelector('.member-add-btn');
-    const memberInput = document.querySelector('.member-input');
-
-    //判斷投票權限選擇(暫時先這樣處理之後再重構= =)
-    private.addEventListener('click',function(e){
-        const inputGroup = document.querySelectorAll('.input-group');
-        if(e.target.id=="all_member"){
-            // console.log();
-            if(inputGroup.length>0){
-                inputGroup[0].firstElementChild.setAttribute("required","");
-                memberInput.style.cssText=`height: ${inputGroup.length*(2.375+0.25)}rem;overflow: hidden;`;
-            }else{
-                const div = document.createElement('div');
-                div.setAttribute("class","input-group mb-1")
-                div.innerHTML=`<input type="email" name="member_new[]" placeholder="請輸入會員帳號" class="form-control w-50"><input type="email" name="member_new[]" placeholder="請輸入會員帳號" class="form-control w-50">`;
-                memberInput.appendChild(div);
-                const inputGroup = document.querySelectorAll('.input-group');
-                inputGroup[0].firstElementChild.setAttribute("required","");
-                memberInput.style.cssText=`height: ${inputGroup.length*(2.375+0.25)}rem;overflow: hidden;`;
-            }
-            memberAddBtn.style.cssText=`transform: translateX(0);opacity:1;max-width:2rem;`;
-            // memberInput.style.cssText=`height: ${inputGroup.length*(2.375+0.25)}rem;overflow: hidden;`;
-        }else if(e.target.id=="public"||e.target.id=="private"){
-            if(inputGroup.length>0){
-                inputGroup[0].firstElementChild.removeAttribute("required","");
-                memberInput.style.cssText="height: 0;overflow: hidden;transition: 0.25s;";
-                memberAddBtn.style.cssText=`transform: translateX(-2rem);opacity:0;max-width:0px;`;
-            }
-        }
-    })
-
-
-    //增加會員按鈕先註冊監聽才能移除監聽
-    memberAddBtn.addEventListener('click',addMemberList);
-
-    //頁面載入時先判斷指定會員&人數修改按鈕狀態
-    const allMemberCheckbox = document.getElementById('all_member');
-    if(allMemberCheckbox.checked){
-        const inputGroup = document.querySelectorAll('.input-group');
-        if(inputGroup.length>0){
-            inputGroup[0].firstElementChild.setAttribute("required","");
-            memberInput.style.cssText=`height: ${inputGroup.length*(2.375+0.25)}rem;overflow: hidden;`;
-            memberAddBtn.style.cssText=`transform: translateX(0);opacity:1;max-width:2rem;`;
-            if(inputGroup.length>=5){
-                memberAddBtn.removeEventListener('click',addMemberList);
-                memberAddBtn.removeAttribute('href');
-                memberAddBtn.querySelector('i').style.cssText=`color:var(--gray-heavy);`;
-            }
-        }
-    }
-
-    //新增私人投票名單
-    function addMemberList(e){
-        e.preventDefault();
-        const div = document.createElement('div');
-        div.setAttribute("class","input-group mb-1")
-        div.innerHTML=`<input type="email" name="member_new[]" placeholder="請輸入會員帳號" class="form-control w-50"><input type="email" name="member_new[]" placeholder="請輸入會員帳號" class="form-control w-50">`;
-        memberInput.appendChild(div);
-        memberInput.style.cssText=`height: auto;`;
-        const inputGroup = document.querySelectorAll('.input-group');
-        if(inputGroup.length>=5){
-            memberAddBtn.removeEventListener('click',addMemberList);
-            memberAddBtn.removeAttribute('href');
-            memberAddBtn.querySelector('i').style.cssText=`color:var(--gray-heavy);`;
-        }
-    }
-
-    //輸入資料驗證
-    const starTime = document.getElementById('start_time');
-    const endTime = document.getElementById('end_time');
-    const timeErrorInfo = document.querySelector('.time-error-info');
-    const optionErrorInfo =document.querySelector('.option-error-info');
-    starTime.addEventListener('change',checkDate);
-    endTime.addEventListener('change',checkDate);
-
-    function checkDate(){
-        const startDate = new Date(starTime.value);
-        const endDate = new Date(endTime.value);
-        timeErrorInfo.textContent="";
-        if(!starTime.value||!endTime.value) {
-            timeErrorInfo.textContent = "請選擇日期";
-        }
-        if(endDate-startDate<0){
-            timeErrorInfo.textContent = "結束時間需要大於開始時間"
-        }
-    }
-
-    //日期區間若不正確終止送出行為
-    addSurveyForm.addEventListener('submit',function(e){
-        e.preventDefault();
-        checkOption()
-        if(!timeErrorInfo.textContent&&!optionErrorInfo.textContent){
-            addSurveyForm.submit();
-        }
-    })
-
-    //檢查是否有重複的投票選項
-    function checkOption(){
-        const optionList = document.querySelectorAll('[name="opt[]"],[name="opt_new[]"]');
-        // console.log(optionList);
-        let result = {};
-        let repeat = [];
-        optionList.forEach(item=>{
-            if(result[item.value]){
-                repeat.push(item.value);
-            }else{
-                result[item.value]=1;
-            }
-            
-        })
-        if(repeat.length!=0){
-            optionErrorInfo.textContent="選項不能重複!";
-        }else{
-            optionErrorInfo.textContent="";
-        }
-    }
-
-    // 由於include了header.php,無法在這頁用PHP的header()轉址
-    // 改用js轉
-    const editPageParams = new URLSearchParams(window.location.search);
-    if(!editPageParams.get('id')){
-        location.href="?do=mysurvey&status=edit_error";
-    }
+    checkIdAndHref('mysurvey');
+    //新增選項上限
+    //因為按鈕有兩層,所以設定的數量為按鈕n*2
+    const optionLimit=20; 
 </script>
+<script src="./js/addPage.js"></script>
