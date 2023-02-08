@@ -7,7 +7,7 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
 <div class="d-flex">
 <div class="nav-space"></div>
 <div class="admin container-xxl pb-5 mt-5">
-    <form action="./api/edit_survey_daily.php" method="post" enctype="multipart/form-data" class="edit-survey-form mx-auto" id="edit-survey-form">
+    <form action="./api/edit_survey_daily.php" method="post" enctype="multipart/form-data" class="edit-survey-form mx-auto" id="add-survey-form">
     <a href="?do=edit_survey_daily" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>返回每日主題</a>
     <div class="section-tag tag-lg mb-3">編輯投票</div>
     <div class="tool d-flex align-items-center">

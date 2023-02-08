@@ -5,7 +5,7 @@ $todaySurvey = find("projectvote_subject_daily", ['start_time' => date("Y-m-d")]
 $today=date("Y-m-d");
 ?>
 <div class="d-flex">
-<div class="nav-space"></div>
+<div class="nav-space flex-shrink-0"></div>
 <div class="admin container-xxl mt-5 pb-5">
     <div class="data">
         <h2 class="section-tag tag-lg mb-4">管理後台</h2>

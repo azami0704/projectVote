@@ -415,6 +415,7 @@ textarea {
 @media screen and (max-width:1520px) {
     .admin.container-xxl {
         width: calc(100% - var(--nav-width));
+        min-width: 650px;
     }
 }
 
