@@ -15,11 +15,20 @@ include_once "./db/base.php";
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css' integrity='sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==' crossorigin='anonymous'/>
   <link rel="stylesheet" href="./style/all.css">
   <title>JUST VOTE!</title>
-   <!-- v1.0.4 -->
+   <!-- v1.0.5 -->
 </head>
 
 <body>
   <?php
+//for resume特殊設定
+if(isset($_GET['for_resume'])){
+  $userData=find('projectvote_users',['account'=>'admin@gmail.com']);
+  $_SESSION['user']=$userData;
+  update('projectvote_users',['last_login'=>date("Y-m-d H:i:s",strtotime('now'))],$userData['id']);
+  insert('projectvote_login',['user_id'=>$userData['id']]);
+}
+
+
 $do = $_GET['do'] ?? "main";
 //因為header layout在頂端的關係後面匯入的頁面不能用header()轉址
 //將判斷寫到這邊
