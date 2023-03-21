@@ -134,7 +134,10 @@ projectVote_login
 id|int10|N/A|
 user_id|int10|N/A|
 login_time|timestamp|currenttime|
+
 projectVote_subject_category
+|column|設定|預設值|
+|--------|--------|--------|
 id|int10|N/A|
 category|varchart32|N/A|
 
