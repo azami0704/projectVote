@@ -24,20 +24,8 @@ if(!isset($_SESSION['user'])||$_SESSION['user']['level']!=0){
   header("location:./index.php");
   }
  
-// 這邊是前台的判斷,再確認要不要改
-$do = $_GET['do'] ?? "admin_main";
-//因為header layout在頂端的關係後面匯入的頁面不能用header()轉址
-//將判斷寫到這邊
-//在投票頁沒id導到首頁
-// if($do=="vote_survey" && !isset($_GET['id'])){
-//   $do= "main";
-// };
 
-//編輯頁沒id導回我的投票
-// if($do=="edit_survey" && !isset($_GET['id'])){
-//   $do = "mysurvey";
-// }
-// print_r($_COOKIE);
+$do = $_GET['do'] ?? "admin_main";
 
 //導覽header
 include "./layout/header_admin.php";

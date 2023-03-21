@@ -25,6 +25,22 @@ front <br>
 <li>近期每日投票</li>
 <li>最新投票(三筆)</li>
 <li>熱門投票(三筆)</li>
+<li>投票</li>
+<li>投票結果</li>
+</ul>
+會員功能
+<ul>
+    <li>新增投票</li>
+    <li>編輯投票</li>
+    <li>刪除投票</li>
+    <li>修改會員資料</li>
+    <li>查詢密碼</li>
+</ul>
+admin<br>
+<ul>
+    <li>DashBoard</li>
+    <li>每日投票管理</li>
+    <li>全站投票管理</li>
 </ul>
 
 
