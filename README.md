@@ -1,4 +1,4 @@
-### [網站展示URL](http://220.128.133.15/s1110420/projectVote/index.php)
+### [網站展示URL](https://azmai.tw/)
 
 ### 使用技術
 後端

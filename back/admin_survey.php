@@ -60,16 +60,15 @@ if(isset($_GET['page'])){
   <?php
   //若為全站投票管理就撈全部
   if($identity!=''){
-    $surveyList = all('projectvote_subject_users',['account'=>$_SESSION['user']['account'],'auth'=>$identity]," LIMIT $pageStart,$pageSetting");
+    $surveyList=q("SELECT projectvote_subject.* FROM `projectvote_subject` LEFT JOIN `projectvote_subject_users` ON `projectvote_subject_users`.`subject_id`= `projectvote_subject`.`id` WHERE `projectvote_subject_users`.`account`='{$_SESSION['user']['account']}' AND `projectvote_subject_users`.`auth`='$identity' ORDER BY `end_time` DESC LIMIT $pageStart,$pageSetting");
     $surveyRows = countSql('projectvote_subject_users',['account'=>$_SESSION['user']['account'],'auth'=>$identity]);
   }else{
-    $surveyList = all('projectvote_subject_users'," LIMIT $pageStart,$pageSetting");
+    $surveyList=q("SELECT projectvote_subject.* FROM `projectvote_subject` LEFT JOIN `projectvote_subject_users` ON `projectvote_subject_users`.`subject_id`= `projectvote_subject`.`id` ORDER BY `end_time` DESC LIMIT $pageStart,$pageSetting");
     $surveyRows = countSql('projectvote_subject_users');
   }
   //清單不是空的就開始印
     if(!empty($surveyList)){
-      foreach($surveyList as $ownSurvey){
-      $surveyDetail =  find('projectvote_subject',['id'=>$ownSurvey['subject_id']]);
+      foreach($surveyList as $surveyDetail){
       $categoryName= find('projectvote_subject_category',$surveyDetail['category_id'])['category'];
       $title = replaceInput('html',$surveyDetail['title']);
       $description = replaceInput('html',$surveyDetail['description']);

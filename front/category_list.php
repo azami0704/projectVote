@@ -12,7 +12,7 @@ if(isset($_GET['page'])){
 }
 //分類搜尋頁
 $date=date("Y-m-d H:i:s",strtotime('now'));
-$surveyList = all('projectvote_subject',['category_id'=>$_GET['category']]," AND `private`='0' AND `start_time`<='$date' LIMIT $pageStart,$pageSetting");
+$surveyList = all('projectvote_subject',['category_id'=>$_GET['category']]," AND `private`='0' AND `start_time`<='$date' ORDER BY `end_time` DESC LIMIT $pageStart,$pageSetting");
 $categoryName= find('projectvote_subject_category',$_GET['category'])['category'];
 $surveyRows = countSql('projectvote_subject',['category_id'=>$_GET['category']]," AND `private`='0' AND `start_time`<='$date'");
 ?>
