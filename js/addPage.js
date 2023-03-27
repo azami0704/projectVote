@@ -2,7 +2,10 @@ const addSurveyForm = document.getElementById('add-survey-form');
 const plusOption = document.querySelector('.plus-option');
 const addOptionBtn = document.querySelector('.add-option-btn');
 //新增選項按鈕綁監聽
-addOptionBtn.addEventListener('click', addOption)
+//投票數的投票移除新增紐，新增判斷避免報錯
+if(addOptionBtn){
+    addOptionBtn.addEventListener('click', addOption)
+}
 
 //新增按鈕的動作,因為需要removeEventListener所以寫成function
 function addOption(e) {

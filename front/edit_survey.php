@@ -89,7 +89,13 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
         <label class="fs-5 fw-bold me-2" for="all_member"><input type="radio" name="private" id="all_member" class="form-check-input fs-5" value=2 <?=$privateMember?>>指定會員</label><a href="#" class="member-add-btn fs-5"><i class="fa-regular fa-square-plus"></i></a>
         </div>
     </div>
-        <a href="#" class="btn btn-main float-right ms-auto add-option-btn align-self-start"><i class="fa-sharp fa-solid fa-plus"></i></a>
+    <?php
+    if($subjectDetail['vote']==0){
+        ?>
+<a href="#" class="btn btn-main float-right ms-auto add-option-btn align-self-start"><i class="fa-sharp fa-solid fa-plus"></i></a>
+        <?php
+    }
+    ?>
     </div>
     <div class="member-input d-flex flex-wrap">
         <?php
@@ -129,13 +135,25 @@ $endTime = date("Y-m-d", strtotime("+1 months"));
 </div>
 <div class="option-error-info text-danger"></div>
 <?php
-foreach($options as $key =>$opt){
-    $star = '*';
-    $deleteBtn='';
-    if($key>1){
-        $star = '';
-        $deleteBtn = "<a href='./api/del_option.php?id={$opt['id']}&subject_id={$opt['subject_id']}' class='btn btn-main float-right ms-auto del-exist-option-btn'><i class='fa-solid fa-trash-can del-exist-option-btn'></i></a><div class='clearfix'></div>";
+if($subjectDetail['vote']>0){
+    echo "<div class='fs-6 text-danger'>*有人投票後無法修改選項</div>";
+    echo "<div class='fs-4'>選項清單:</div>";
+    foreach($options as $key =>$opt){
+    ?>
+    <div class="mb-3">
+        <p class="fs-4 fw-bold"><span><?=$key+1?>.</span><?=$opt['opt']?></p>
+    </div>
+    <?php
     }
+}else{
+    foreach($options as $key =>$opt){
+        $star = '*';
+        $deleteBtn='';
+        if($key>1){
+            $star = '';
+            $deleteBtn = "<a href='./api/del_option.php?id={$opt['id']}&subject_id={$opt['subject_id']}' class='btn btn-main float-right ms-auto del-exist-option-btn'><i class='fa-solid fa-trash-can del-exist-option-btn'></i></a><div class='clearfix'></div>";
+        }
+    
     ?>
     <div class="mb-3">
     <label class="form-label fs-4 fw-bold">選項<span class="text-danger"><?=$star?></span></label>
@@ -143,7 +161,8 @@ foreach($options as $key =>$opt){
     <input type="hidden" name = "opt_id[]" value="<?=$opt['id']?>">
     <input type="text" name="opt[]" class="form-control"  placeholder="請輸15字以內入文字" maxlength="15" autocomplete="off" value="<?=$opt['opt']?>" required >
     </div>
-    <?php
+        <?php
+        }
 }
 ?>
 <div class="plus-option"></div>
