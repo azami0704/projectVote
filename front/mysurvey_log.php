@@ -78,7 +78,7 @@ if(isset($_GET['page'])){
     <div class="w-15 fs-6 "><?=$surveyLog['created_at']?></div>
     <div class="w-15">
       <?php
-      echo "<a href='?do=survey_result&id={$surveyDetail['id']}' class='btn btn-main'><i class='fa-solid fa-eye'></i></a>";
+      echo "<a href='?do=survey_result_daily&id={$surveyDetail['id']}' class='btn btn-main'><i class='fa-solid fa-eye'></i></a>";
       ?>
     </div>
   </li>
