@@ -14,7 +14,7 @@ function addOption(e) {
     div.setAttribute('class', "mb-3");
     div.innerHTML = `<label class="form-label fs-4 fw-bold">選項</span></label><a href="#" class="btn btn-main float-right ms-auto del-option-btn"><i class="fa-solid fa-trash-can del-option-btn"></i></a>
         <div class="clearfix"></div>
-        <input type="text" name="opt[]" class="form-control"  placeholder="請輸入文字" maxlength="15" autocomplete="off">`
+        <input type="text" name="opt_new[]" class="form-control"  placeholder="請輸入文字" maxlength="15" autocomplete="off">`
     plusOption.appendChild(div);
     const delOptionBtn = document.querySelectorAll('.del-option-btn');
     optionLimitControl(delOptionBtn, optionLimit);
