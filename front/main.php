@@ -40,7 +40,7 @@ $weekEnd = date("Y-m-d",strtotime("+1 days"));
           </div>
           <div class="card-body">
             <h5 class="card-title"><?=$todaySurvey['title']?></h5>
-            <p class="card-text fs-1 text-center mb-0"><?=$options[0]['opt']?><span class="fs-5">vs</span><?=$options[1]['opt']?></p>
+            <p class="card-text fs-1 text-center mb-0"><?=replaceInput('html',$options[0]['opt'])?><span class="fs-5">vs</span><?=replaceInput('html',$options[1]['opt'])?></p>
             <footer class="d-flex align-items-end">
               <div class="timer-info ms-auto me-2">距離結束還剩</div>
               <div id="timer" class="fs-2 lh-1"  data-active="<?=$active?>" data-time="<?=$todaySurvey['end_time']?>">--:--:--</div>
@@ -111,9 +111,9 @@ if (empty($hot)) {
         ?>
       <li class="list-group-item d-flex align-items-center border-bottom border-1 border-dark px-1">
       <div class="w-5"><?=$category['category']?></div>
-      <div class="w-20 text-collapse"><?=$value['title']?></div>
+      <div class="w-20 text-collapse"><?=replaceInput('html',$value['title'])?></div>
       <div class="w-15"><?=$value['vote']?></div>
-      <div class="w-30 text-collapse"><?=$value['description']?></div>
+      <div class="w-30 text-collapse"><?=replaceInput('html',$value['description'])?></div>
       <div class="w-15"><?=$value['update_at']?></div>
       <div class="w-15">
         <?php
@@ -159,9 +159,9 @@ if (empty($newSurveys)) {
         ?>
     <li class="list-group-item d-flex align-items-center border-bottom border-1 border-dark px-1">
     <div class="w-5"><?=$category['category']?></div>
-    <div class="w-20 text-collapse"><?=$newSurvey['title']?></div>
+    <div class="w-20 text-collapse"><?=replaceInput('html',$newSurvey['title'])?></div>
     <div class="w-15"><?=$newSurvey['vote']?></div>
-    <div class="w-30 text-collapse"><?=$newSurvey['description']?></div>
+    <div class="w-30 text-collapse"><?=replaceInput('html',$newSurvey['description'])?></div>
     <div class="w-15"><?=$newSurvey['update_at']?></div>
     <div class="w-15">
     <?php

@@ -22,8 +22,8 @@ $endtTime = strtotime($survey['end_time']);
 <div class="container-xxl pb-5 mt-3">
     <div class="survey-info w-50 mx-auto">
         <a href="#" class="fw-bold d-block mb-1 back-btn"><i class="fa-solid fa-chevron-left mr-1"></i>回上一頁</a>
-        <h2 class="section-tag tag-lg mb-3"><?=$survey['title']?></h2>
-        <p class="fs-4 fw-bold mt-2" ><?=$survey['description']?></p>
+        <h2 class="section-tag tag-lg mb-3"><?=replaceInput('html',$survey['title'])?></h2>
+        <p class="fs-4 fw-bold mt-2" ><?=replaceInput('html',$survey['description'])?></p>
     </div>
     <form action="./api/vote_survey_daily.php" method="post" class="vote-survey-form w-50 mx-auto position-relative active" id="vote-survey-form">
         <input type="hidden" name="id" value="<?=$survey['id']?>">
@@ -32,7 +32,7 @@ $endtTime = strtotime($survey['end_time']);
     foreach($options as $key=>$option){
             ?>
             <div class="option my-2">
-            <label class="fs-5 fw-bold me-2 border-bottom border-2 border-sub d-block" for="<?=$option['id']?>"><input type="<?=$type?>" id="<?=$option['id']?>" class="form-check-input fs-5 d-inline-block me-1" name="opt[]" value="<?=$option['id']?>"><?=$option['opt']?></label>
+            <label class="fs-5 fw-bold me-2 border-bottom border-2 border-sub d-block" for="<?=$option['id']?>"><input type="<?=$type?>" id="<?=$option['id']?>" class="form-check-input fs-5 d-inline-block me-1" name="opt[]" value="<?=$option['id']?>"><?=replaceInput('html',$option['opt'])?></label>
             </div>
         <?php
         }

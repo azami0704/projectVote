@@ -182,7 +182,7 @@ function replaceInput($action,$str){
             return preg_replace('/([\'"]|\\\\|[--])/', '\\\\$1',$str);
         break;
         case 'html':
-            return preg_replace(['/</','/>/'], ['《','》'],$str);
+            return preg_replace(['/</','/>/'], ['&lt;','&gt;'],$str);
         break;
         default:
         echo '請確認參數1字串否正確';
